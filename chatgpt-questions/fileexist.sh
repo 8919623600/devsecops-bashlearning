@@ -3,7 +3,7 @@
 echo "Enter file name: "
 read file
 
-if [ -f "$file"] 
+if [ -f "$file" ] 
 then
   echo "File exist"
  else
