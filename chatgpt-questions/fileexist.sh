@@ -8,4 +8,4 @@ then
   echo "File exist"
  else
   echo "File does not exist"
-done
+fi
