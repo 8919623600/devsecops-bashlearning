@@ -1,10 +1,10 @@
 #! /bin/bash
 
-echo -e "\e[33m Configuration management for $COMPONENT \e[0m"
-
 ID=$(id -u)
 LOG="/tmp/front.log"
 COMPONENT="frontend"
+
+echo -e "\e[33m Configuration management for $COMPONENT \e[0m"
 
 if [ $ID -ne 0 ]; then
    echo -e "Script has to be executed by root user"
