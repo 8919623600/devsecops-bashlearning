@@ -19,32 +19,32 @@ stat() {
     fi
 }
 
-echo "disabling nginx module" 
+echo -n "disabling nginx module: " 
 dnf module disable nginx -y  &>> /tmp/front.log
 stat $?
 
 
-echo -n "Enabling nginx"
+echo -n "Enabling nginx: "
 dnf module enable nginx:1.24 -y &>> /tmp/front.log
 stat $?
 
-echo -n "Installing Nginx"
+echo -n "Installing Nginx: "
 dnf install nginx -y &>> /tmp/front.log
 stat $?
 
-echo -n "Download the HTDOCS content and deploy it under the Nginx path"
+echo -n "Download the HTDOCS content and deploy it under the Nginx path: "
 curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/frontend-v3.zip &>> /tmp/front.log
 stat $?
 
-echo -n "Performing cleanup"
+echo -n "Performing cleanup: "
 rm -rf /usr/share/nginx/html
 stat $?
 
-echo -n "Extracting the frontend component"
+echo -n "Extracting the frontend component: "
 unzip /tmp/frontend.zip -d /usr/share/nginx/html &>> /tmp/front.log
 stat $?
 
-echo -n "Configuring frontend proxy file"
+echo -n "Configuring frontend proxy file: "
 cp nginx.conf /etc/nginx/nginx.conf
  stat $?
 
