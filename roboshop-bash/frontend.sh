@@ -31,8 +31,8 @@ unzip /tmp/frontend.zip -d /usr/share/nginx/html &>> /tmp/front.log
 echo "Configuring frontend proxy file"
 cp nginx.conf /etc/nginx/nginx.conf
  
-echo "Starting the $COMPONENT service: "
+echo "Starting the frontend service: "
 systemctl enable nginx &>> $LOG
 systemctl restart nginx &>> $LOG
 
-echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+echo -e "\n \t ___ Configuration Management for frontend in completed! ___"
