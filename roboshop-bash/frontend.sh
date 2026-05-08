@@ -14,14 +14,14 @@ fi
 
 stat() {
     if [ $1 -eq 0 ]; then
-      echo -e "\e[34m Success \e[0m"
+      echo -e "\e[37m Success \e[0m"
     else
       echo "\e[36m Failure \e[0m"
       exit 2
     fi
 }
 
-echo -n "disabling nginx module: " 
+echo -n "Disabling nginx module: " 
 dnf module disable nginx -y  &>> /tmp/front.log
 stat $?
 
