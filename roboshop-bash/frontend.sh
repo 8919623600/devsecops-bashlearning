@@ -10,13 +10,29 @@ if [ $ID -ne 0 ]; then
    exit 1
 fi
 
-
-
 echo "disabling nginx module"
-dnf module disable nginx -y
+dnf module disable nginx -y  &>> /tmp/front.log
 
 echo "Enabling nginx"
-dnf module enable nginx:1.24 -y
+dnf module enable nginx:1.24 -y &>> /tmp/front.log
 
 echo "Installing Nginx"
-dnf install nginx -y
+dnf install nginx -y &>> /tmp/front.log
+
+echo "Download the HTDOCS content and deploy it under the Nginx path"
+curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/frontend-v3.zip &>> /tmp/front.log
+
+echo "Performing cleanup"
+rm -rf /usr/share/nginx/html
+
+echo "Extracting the frontend component"
+unzip /tmp/frontend.zip -d /usr/share/nginx/html &>> /tmp/front.log
+
+echo "Configuring frontend proxy file"
+cp nginx.conf /etc/nginx/nginx.conf
+ 
+echo "Starting the $COMPONENT service: "
+systemctl enable nginx &>> $LOG
+systemctl restart nginx &>> $LOG
+
+echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
