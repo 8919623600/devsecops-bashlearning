@@ -1,8 +1,10 @@
 #! /bin/bash
 
-echo -e "\e[33m Configuration management for Frontend \e[0m"
+echo -e "\e[33m Configuration management for $COMPONENT \e[0m"
 
 ID=$(id -u)
+LOG="/tmp/front.log"
+COMPONENT="frontend"
 
 if [ $ID -ne 0 ]; then
    echo -e "Script has to be executed by root user"
@@ -33,24 +35,24 @@ dnf install nginx -y &>> /tmp/front.log
 stat $?
 
 echo -n "Download the HTDOCS content and deploy it under the Nginx path: "
-curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/frontend-v3.zip &>> /tmp/front.log
+curl -L -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip &>> /tmp/front.log
 stat $?
 
 echo -n "Performing cleanup: "
 rm -rf /usr/share/nginx/html
 stat $?
 
-echo -n "Extracting the frontend component: "
-unzip /tmp/frontend.zip -d /usr/share/nginx/html &>> /tmp/front.log
+echo -n "Extracting the $COMPONENT component: "
+unzip /tmp/$COMPONENT.zip -d /usr/share/nginx/html &>> /tmp/front.log
 stat $?
 
-echo -n "Configuring frontend proxy file: "
+echo -n "Configuring $COMPONENT proxy file: "
 cp nginx.conf /etc/nginx/nginx.conf
  stat $?
 
-echo -n "Starting the frontend service: "
+echo -n "Starting the $COMPONENT service: "
 systemctl enable nginx &>> /tmp/front.log
 systemctl restart nginx &>> /tmp/front.log
 stat $?
 
-echo -e "\n \t ___ Configuration Management for frontend in completed! ___"
+echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
