@@ -5,8 +5,8 @@ echo "Configuration management for Frontend"
 ID=$(id -u)
 
 if [ $ID -ne 0 ]; then
-   echo "Script has to be executed by root user"
-   echo "Example usage: \n\t \e[33m sudo bash $0  OR # bash $0 \e[0m"
+   echo -e "Script has to be executed by root user"
+   echo -e "Example usage: \n\t \e[33m sudo bash $0  OR # bash $0 \e[0m"
    
 fi
 
