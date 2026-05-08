@@ -32,7 +32,7 @@ echo "Configuring frontend proxy file"
 cp nginx.conf /etc/nginx/nginx.conf
  
 echo "Starting the frontend service: "
-systemctl enable nginx &>> $LOG
-systemctl restart nginx &>> $LOG
+systemctl enable nginx &>> /tmp/front.log
+systemctl restart nginx &>> /tmp/front.log
 
 echo -e "\n \t ___ Configuration Management for frontend in completed! ___"
