@@ -1,6 +1,6 @@
 #! /bin/bash
 
-echo "Configuration management for Frontend"
+echo -e "\e[33m Configuration management for Frontend \e[0m"
 
 ID=$(id -u)
 
@@ -12,9 +12,9 @@ fi
 
 stat() {
     if [ $1 -eq 0 ]; then
-      echo -e "\e[35m Success \e[0m]"
+      echo -e "\e[34m Success \e[0m"
     else
-      echo "\e[34m Failure \e[0m]"
+      echo "\e[36m Failure \e[0m"
       exit 2
     fi
 }
