@@ -10,29 +10,47 @@ if [ $ID -ne 0 ]; then
    exit 1
 fi
 
-echo "disabling nginx module"
+stat() {
+    if [ $1 -eq 0 ]; then
+      echo "Success"
+    else
+      echo "failure"
+      exit 2
+    fi
+}
+
+echo "disabling nginx module" 
 dnf module disable nginx -y  &>> /tmp/front.log
+stat $?
 
-echo "Enabling nginx"
+
+echo -n "Enabling nginx"
 dnf module enable nginx:1.24 -y &>> /tmp/front.log
+stat $?
 
-echo "Installing Nginx"
+echo -n "Installing Nginx"
 dnf install nginx -y &>> /tmp/front.log
+stat $?
 
-echo "Download the HTDOCS content and deploy it under the Nginx path"
+echo -n "Download the HTDOCS content and deploy it under the Nginx path"
 curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/frontend-v3.zip &>> /tmp/front.log
+stat $?
 
-echo "Performing cleanup"
+echo -n "Performing cleanup"
 rm -rf /usr/share/nginx/html
+stat $?
 
-echo "Extracting the frontend component"
+echo -n "Extracting the frontend component"
 unzip /tmp/frontend.zip -d /usr/share/nginx/html &>> /tmp/front.log
+stat $?
 
-echo "Configuring frontend proxy file"
+echo -n "Configuring frontend proxy file"
 cp nginx.conf /etc/nginx/nginx.conf
- 
-echo "Starting the frontend service: "
+ stat $?
+
+echo -n "Starting the frontend service: "
 systemctl enable nginx &>> /tmp/front.log
 systemctl restart nginx &>> /tmp/front.log
+stat $?
 
 echo -e "\n \t ___ Configuration Management for frontend in completed! ___"
