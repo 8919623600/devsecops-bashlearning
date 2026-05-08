@@ -1,7 +1,7 @@
 #! /bin/bash
 
 ID=$(id -u)
-LOG="/tmp/front.log"
+LOG="/tmp/frontend.log"
 COMPONENT="frontend"
 
 echo -e "\e[33m Configuration management for $COMPONENT \e[0m"
@@ -22,20 +22,20 @@ stat() {
 }
 
 echo -n "Disabling nginx module: " 
-dnf module disable nginx -y  &>> /tmp/front.log
+dnf module disable nginx -y  &>> $LOG
 stat $?
 
 
 echo -n "Enabling nginx: "
-dnf module enable nginx:1.24 -y &>> /tmp/front.log
+dnf module enable nginx:1.24 -y &>> $LOG
 stat $?
 
 echo -n "Installing Nginx: "
-dnf install nginx -y &>> /tmp/front.log
+dnf install nginx -y &>> $LOG
 stat $?
 
 echo -n "Download the HTDOCS content and deploy it under the Nginx path: "
-curl -L -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip &>> /tmp/front.log
+curl -L -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip &>> $LOG
 stat $?
 
 echo -n "Performing cleanup: "
@@ -43,7 +43,7 @@ rm -rf /usr/share/nginx/html
 stat $?
 
 echo -n "Extracting the $COMPONENT component: "
-unzip /tmp/$COMPONENT.zip -d /usr/share/nginx/html &>> /tmp/front.log
+unzip /tmp/$COMPONENT.zip -d /usr/share/nginx/html &>> $LOG
 stat $?
 
 echo -n "Configuring $COMPONENT proxy file: "
@@ -51,8 +51,8 @@ cp nginx.conf /etc/nginx/nginx.conf
  stat $?
 
 echo -n "Starting the $COMPONENT service: "
-systemctl enable nginx &>> /tmp/front.log
-systemctl restart nginx &>> /tmp/front.log
+systemctl enable nginx &>> $LOG
+systemctl restart nginx &>> $LOG
 stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
