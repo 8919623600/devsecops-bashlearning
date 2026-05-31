@@ -27,6 +27,11 @@ echo -n "Installing MongoDB: "
 dnf install mongodb-org -y  &>> $LOG
 stat $?
 
+echo -n "Enabling MongoDB service: "
+systemctl enable mongod
+stat $?
+
+
 
 
  
