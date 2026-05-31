@@ -23,17 +23,19 @@ echo -n "copying mongo.repo file to yum.repos.d: "
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 stat $?
 
-echo -n "Installing MongoDB: "
+echo -n "Installing $COMPONENT: "
 dnf install mongodb-org -y  &>> $LOG
 stat $?
 
-echo -n "Enabling MongoDB service: "
+echo -n "Enabling $COMPONENT service: "
 systemctl enable mongod
 stat $?
 
-echo -n "Starting MongoDB service: "
+echo -n "Starting $COMPONENT service: "
 systemctl start mongod
 stat $?
 
-
+echo -n "Updating the $COMPONENT visibility:"
+sed -ie 's/127.0.0.0/0.0.0.0'/etc/mongod.conf
+stat $?
  
