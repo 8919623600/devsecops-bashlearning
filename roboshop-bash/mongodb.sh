@@ -31,7 +31,9 @@ echo -n "Enabling MongoDB service: "
 systemctl enable mongod
 stat $?
 
-
+echo -n "Starting MongoDB service: "
+systemctl start mongod
+stat $?
 
 
  
