@@ -22,5 +22,10 @@ echo -n "copying mongo.repo file to yum.repos.d: "
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 stat $?
 
+echo -n "Installing MongoDB: "
+dnf install mongodb-org -y
+stat $?
+
+
 
  
