@@ -2,6 +2,7 @@
 
 ID=$(id -u)
 COMPONENT="mongodb"
+LOG="/tmp/mongodb.log"
 
 if [ $ID -ne 0 ]; then
    echo -e "Script has to be excecuted by root user"
@@ -23,7 +24,7 @@ cp mongo.repo /etc/yum.repos.d/mongo.repo
 stat $?
 
 echo -n "Installing MongoDB: "
-dnf install mongodb-org -y
+dnf install mongodb-org -y  &>> $LOG
 stat $?
 
 
