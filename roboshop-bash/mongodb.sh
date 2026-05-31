@@ -11,9 +11,9 @@ fi
 
 stat () {
    if [ $1 -eq 0 ]; then
-      echo -e "success"
+      echo -e "\e[35m Success \e[0m"
    else
-      echo -e "failure"
+      echo -e "\e[35m Failure \e[0m"
       exit 2
    fi
 }
