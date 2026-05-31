@@ -8,4 +8,7 @@ if [ $ID -ne 0 ]; then
    echo -e "Example usage: sudo $0"
    exit 1
 fi
+
+echo "copying mongo.repo file to yum.repos.d"
+cp mongo.repo /etc/yum.repos.d/mongo.repo
  
