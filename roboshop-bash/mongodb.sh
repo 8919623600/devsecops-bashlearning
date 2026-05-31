@@ -36,7 +36,7 @@ systemctl start mongod
 stat $?
 
 echo -n "Updating the $COMPONENT visibility:"
-sed -ie 's/127.0.0.0/0.0.0.0/' /etc/mongod.conf
+sed -ie 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 stat $?
 
 echo -n "Restart $COMPONENT service: "
