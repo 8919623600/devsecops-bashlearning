@@ -5,7 +5,7 @@ COMPONENT="mongodb"
 
 if [ $ID -ne 0 ]; then
    echo -e "Script has to be excecuted by root user"
-   echo -e "Example usage: sudo $0.sh "
+   echo -e "Example usage: sudo $0"
    exit 1
 fi
  
