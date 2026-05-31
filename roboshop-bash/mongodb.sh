@@ -9,6 +9,18 @@ if [ $ID -ne 0 ]; then
    exit 1
 fi
 
-echo "copying mongo.repo file to yum.repos.d"
+stat () {
+   if [ $1 eq 0 ]; then
+      echo -e "success"
+   else
+      echo -e "failure"
+      exit 2
+   fi
+}
+
+echo -n "copying mongo.repo file to yum.repos.d: "
 cp mongo.repo /etc/yum.repos.d/mongo.repo
+stat $?
+
+
  
