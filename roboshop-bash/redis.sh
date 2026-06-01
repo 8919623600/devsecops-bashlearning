@@ -12,5 +12,5 @@ $?
 sed -ie 's/^protected-mode yes/protected-mode no/' /etc/redis/redis.conf
 
 systemctl enable redis
-systemctl start redis
+systemctl restart redis
 systemctl status redis -l
