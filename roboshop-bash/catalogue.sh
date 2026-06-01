@@ -21,11 +21,11 @@ stat() {
 
 
 echo -n "Disabling older version of nodejs: "
-dnf module disable nodejs -y    
+dnf module disable nodejs -y    $>> $LOG
 stat $?
 
 echo -n "Enabling nodejs version 20: "
-dnf module enable nodejs:20 -y  $>> $LOG
+dnf module enable nodejs:20 -y  
 stat $?
 
 echo -n "installing nodejs: "
