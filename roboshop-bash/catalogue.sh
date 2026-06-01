@@ -3,6 +3,7 @@
 COMPONENT="catalogue"
 ID=$(id -u)
 LOG="/tmp/catalogue.log"
+USERAPP="roboshop"
 
 if [ $ID -ne 0 ]; then
    echo -e "Script has to be excecuted by root user"
@@ -32,8 +33,8 @@ echo -n "installing nodejs: "
 dnf install nodejs -y &>> $LOG
 stat $?
 
-echo -n "Adding roboshop user account: "
-useradd roboshop || true  &>> $LOG
+echo -n "Adding $USERAPP user account: "
+useradd $USERAPP || true  &>> $LOG
 stat $?
 
 echo -n "performing cleanup of $COMPONENT: "
