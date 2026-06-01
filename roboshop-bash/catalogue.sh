@@ -50,7 +50,7 @@ curl -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}
 stat $?
 
 echo -n "Copying $COMPONENT service file to systemd: "
-cp catalogue.service /etc/systemd/system/${COMPONENT}.service &>> $LOG
+cp ${COMPONENT}.service /etc/systemd/system/${COMPONENT}.service &>> $LOG
 stat $?
 
 echo -n "Extracting the $COMPONENT app: "
