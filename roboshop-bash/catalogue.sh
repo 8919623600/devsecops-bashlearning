@@ -63,7 +63,7 @@ npm install  &>> $LOG
 stat $?
 
 echo -n "Configuring mongo-shell repo: "
-cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG
+cp mongo.repo /etc/yum.repos.d/mongo.repo 
 stat $?
 
 echo -n "Installing Mongodb schema: "
