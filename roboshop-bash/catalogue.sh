@@ -40,4 +40,6 @@ mkdir /app
 curl -o /tmp/catalogue.zip https://stan-robotshop.s3.amazonaws.com/catalogue-v3.zip 
 cd /app 
 unzip /tmp/catalogue.zip
+cd /app
+npm install 
 
