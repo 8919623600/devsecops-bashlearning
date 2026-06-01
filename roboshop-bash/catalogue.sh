@@ -33,7 +33,7 @@ echo -n "installing nodejs: "
 dnf install nodejs -y &>> $LOG
 stat $?
 
-ID $USERAPP
+id $USERAPP
 if [ $? -nq 0 ]; then  
    echo -n "Creating roboshop user account"
    useradd $USERAPP
