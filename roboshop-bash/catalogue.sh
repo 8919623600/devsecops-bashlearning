@@ -68,3 +68,14 @@ systemctl start $COMPONENT  &>> $LOG
 systemctl enable $COMPONENT  &>> $LOG
 systemctl status $COMPONENT -l  &>> $LOG
 stat $?
+
+echo -n "Creating mongo repo: "
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG
+stat $?
+
+echo -n "Installing Mongodb schema: "
+dnf install mongodb-mongosh -y
+stat $?
+
+echo -n "Injecting the schema"
+mongosh --host mongodb.robodefense.online </app/db/master-data.js
