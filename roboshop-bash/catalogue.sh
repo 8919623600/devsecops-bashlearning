@@ -34,7 +34,7 @@ dnf install nodejs -y &>> $LOG
 stat $?
 
 id $USERAPP
-if [ $? -nq 0 ]; then  
+if [ $? -ne 0 ]; then  
    echo -n "Creating roboshop user account"
    useradd $USERAPP
    stat $?
