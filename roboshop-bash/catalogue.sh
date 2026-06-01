@@ -59,7 +59,7 @@ npm install  &>> $LOG
 stat $?
 
 echo -n "Copying $COMPONENT service file to systemd: "
-cp $COMPONENT.service /etc/systemd/system/${COMPONENT}.service &>> $LOG
+cp catalogue.service /etc/systemd/system/${COMPONENT}.service &>> $LOG
 stat $?
 
 systemctl daemon-reload
