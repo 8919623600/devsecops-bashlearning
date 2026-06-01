@@ -62,8 +62,9 @@ cd /app
 npm install  &>> $LOG
 stat $?
 
-
-systemctl daemon-reload
-systemctl start $COMPONENT
-systemctl enable $COMPONENT
-systemctl status $COMPONENT -l
+echo -n "Starting $COMPONENT service: "
+systemctl daemon-reload  &>> $LOG
+systemctl start $COMPONENT  &>> $LOG
+systemctl enable $COMPONENT  &>> $LOG
+systemctl status $COMPONENT -l  &>> $LOG
+stat $?
