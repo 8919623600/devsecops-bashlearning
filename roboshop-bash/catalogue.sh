@@ -49,6 +49,10 @@ echo -n "Downloading the $COMPONENT app: "
 curl -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip  &>> $LOG
 stat $?
 
+echo -n "Copying $COMPONENT service file to systemd: "
+cp catalogue.service /etc/systemd/system/${COMPONENT}.service &>> $LOG
+stat $?
+
 echo -n "Extracting the $COMPONENT app: "
 unzip -o /tmp/${COMPONENT}.zip -d /app/   &>> $LOG
 stat $?
@@ -58,9 +62,6 @@ cd /app
 npm install  &>> $LOG
 stat $?
 
-echo -n "Copying $COMPONENT service file to systemd: "
-cp catalogue.service /etc/systemd/system/${COMPONENT}.service &>> $LOG
-stat $?
 
 systemctl daemon-reload
 systemctl start $COMPONENT
