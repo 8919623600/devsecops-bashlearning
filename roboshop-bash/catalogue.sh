@@ -21,25 +21,39 @@ stat() {
 
 
 echo -n "Disabling older version of nodejs: "
-dnf module disable nodejs -y  
+dnf module disable nodejs -y    $>> $LOG
 stat $?
 
 echo -n "Enabling nodejs version 20: "
-dnf module enable nodejs:20 -y 
+dnf module enable nodejs:20 -y  $>> $LOG
 stat $?
 
 echo -n "installing nodejs: "
-dnf install nodejs -y
+dnf install nodejs -y $>> $LOG
 stat $?
 
-echo -n "Adding roboshop user: "
-useradd roboshop || true
+echo -n "Adding roboshop user account: "
+useradd roboshop || true  $>> $LOG
 stat $?
 
+echo -n "performing cleanup of $COMPONENT: "
+rm -rf /app || true $>> $LOG
+stat $?
+
+echo -n "Creating app directory"
 mkdir /app
-curl -o /tmp/catalogue.zip https://stan-robotshop.s3.amazonaws.com/catalogue-v3.zip 
-cd /app 
-unzip /tmp/catalogue.zip
+stat $?
+
+echo -n "Downloading the $COMPONENT app: "
+curl -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip  $>> $LOG
+stat $?
+
+echo -n "Extracting the $COMPONENT app: "
+unzip -o /tmp/$COMPONENT.zip -d /app/   $>> $LOG
+stat $?
+
+echo -n "Generating $COMPONENT Artifact: "
 cd /app
-npm install 
+npm install  &>> $LOG
+stat $?
 
