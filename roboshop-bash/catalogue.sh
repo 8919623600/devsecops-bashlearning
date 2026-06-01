@@ -62,14 +62,7 @@ cd /app
 npm install  &>> $LOG
 stat $?
 
-echo -n "Starting $COMPONENT service: "
-systemctl daemon-reload  &>> $LOG
-systemctl start $COMPONENT  &>> $LOG
-systemctl enable $COMPONENT  &>> $LOG
-systemctl status $COMPONENT -l  &>> $LOG
-stat $?
-
-echo -n "Creating mongo repo: "
+echo -n "Configuring mongo-shell repo: "
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG
 stat $?
 
@@ -79,6 +72,13 @@ stat $?
 
 echo -n "Injecting the schema"
 mongosh --host mongodb.robodefense.online </app/db/master-data.js &>> $LOG
+stat $?
+
+echo -n "Starting $COMPONENT service: "
+systemctl daemon-reload  &>> $LOG
+systemctl start $COMPONENT  &>> $LOG
+systemctl enable $COMPONENT  &>> $LOG
+systemctl status $COMPONENT -l  &>> $LOG
 stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
