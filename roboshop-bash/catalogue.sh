@@ -33,9 +33,14 @@ echo -n "installing nodejs: "
 dnf install nodejs -y &>> $LOG
 stat $?
 
-echo -n "Adding $USERAPP user account: "
-useradd $USERAPP || true  &>> $LOG
-stat $?
+ID $USERAPP
+if [ $? -nq 0 ]; then  
+   echo -n "Creating roboshop user account"
+   useradd $USERAPP
+   stat $?
+else
+   echo "SKIPPING"
+
 
 echo -n "performing cleanup of $COMPONENT: "
 rm -rf /app || true &>> $LOG
@@ -46,7 +51,7 @@ mkdir /app
 stat $?
 
 echo -n "Downloading the $COMPONENT app: "
-curl -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip  &>> $LOG
+curl -os /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip  &>> $LOG
 stat $?
 
 echo -n "Copying $COMPONENT service file to systemd: "
@@ -57,14 +62,13 @@ echo -n "Extracting the $COMPONENT app: "
 unzip -o /tmp/${COMPONENT}.zip -d /app/   &>> $LOG
 stat $?
 
+echo -n "Configuring mongo-shell repo: "
+cp mongo.repo /etc/yum.repos.d/mongo.repo 
+stat $?
+
 echo -n "Generating $COMPONENT Artifact: "
 cd /app
 npm install  &>> $LOG
-stat $?
-
-echo -n "Configuring mongo-shell repo: "
-pwd
-cp mongo.repo /etc/yum.repos.d/mongo.repo 
 stat $?
 
 echo -n "Installing Mongodb schema: "
