@@ -74,8 +74,11 @@ cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG
 stat $?
 
 echo -n "Installing Mongodb schema: "
-dnf install mongodb-mongosh -y
+dnf install mongodb-mongosh -y &>> $LOG
 stat $?
 
 echo -n "Injecting the schema"
-mongosh --host mongodb.robodefense.online </app/db/master-data.js
+mongosh --host mongodb.robodefense.online </app/db/master-data.js &>> $LOG
+stat $?
+
+echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
