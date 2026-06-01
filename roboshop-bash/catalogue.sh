@@ -33,7 +33,7 @@ dnf install nodejs -y
 stat $?
 
 echo -n "Adding roboshop user: "
-useradd roboshop
+useradd roboshop || true
 stat $?
 
 mkdir /app
