@@ -20,4 +20,24 @@ stat() {
 }
 
 
-echo 
+echo -n "Disabling older version of nodejs: "
+dnf module disable nodejs -y  
+stat $?
+
+echo -n "Enabling nodejs version 20: "
+dnf module enable nodejs:20 -y 
+stat $?
+
+echo -n "installing nodejs: "
+dnf install nodejs -y
+stat $?
+
+echo -n "Adding roboshop user: "
+useradd roboshop
+stat $?
+
+mkdir /app
+curl -o /tmp/catalogue.zip https://stan-robotshop.s3.amazonaws.com/catalogue-v3.zip 
+cd /app 
+unzip /tmp/catalogue.zip
+
