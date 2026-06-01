@@ -7,6 +7,7 @@ dnf install redis -y
 
 # sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis.conf
 sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf
+$?
 
 sed -ie 's/^protected-mode yes/protected-mode no/' /etc/redis/redis.conf
 
