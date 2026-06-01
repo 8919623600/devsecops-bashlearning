@@ -63,6 +63,7 @@ npm install  &>> $LOG
 stat $?
 
 echo -n "Configuring mongo-shell repo: "
+pwd
 cp mongo.repo /etc/yum.repos.d/mongo.repo 
 stat $?
 
