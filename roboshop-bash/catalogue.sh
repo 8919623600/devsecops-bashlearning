@@ -40,7 +40,8 @@ if [ $? -nq 0 ]; then
    stat $?
 else
    echo "SKIPPING"
-
+fi
+stat $?
 
 echo -n "performing cleanup of $COMPONENT: "
 rm -rf /app || true &>> $LOG
